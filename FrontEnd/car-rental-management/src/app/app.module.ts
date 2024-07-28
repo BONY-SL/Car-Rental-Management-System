@@ -17,7 +17,7 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzSpinComponent} from "ng-zorro-antd/spin";
 import {NzFormControlComponent, NzFormDirective} from "ng-zorro-antd/form";
-import {NzInputDirective} from "ng-zorro-antd/input";
+import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 
 registerLocaleData(en);
 
@@ -27,20 +27,21 @@ registerLocaleData(en);
     LoginComponent,
     SignupComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    NzHeaderComponent,
-    NzRowDirective,
-    NzButtonComponent,
-    NzSpinComponent,
-    NzColDirective,
-    NzFormDirective,
-    NzFormControlComponent,
-    NzInputDirective,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NzHeaderComponent,
+        NzRowDirective,
+        NzButtonComponent,
+        NzSpinComponent,
+        NzColDirective,
+        NzFormDirective,
+        NzFormControlComponent,
+        NzInputDirective,
+        ReactiveFormsModule,
+        NzInputGroupComponent
+    ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     provideAnimationsAsync(),

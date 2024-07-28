@@ -8,6 +8,7 @@ import com.example.CarRentalManagementApplication.util.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +24,7 @@ public class AuthServiceImpl implements AuthService{
 
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
-        user.setPassword(signUpRequest.getPassword());
+        user.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
         user.setUserRole(UserRole.CUSTOMER);
 
 
