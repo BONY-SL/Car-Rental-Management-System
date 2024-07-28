@@ -1,0 +1,29 @@
+.custom-navbar{
+  background-color: #3c8c3c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 110px;
+
+  .navbar-title{
+
+    >a {
+      color: #000000 !important;
+      margin-left: 30px;
+      font-size: 26px;
+      font-weight: bolder;
+    }
+  }
+
+  .nav-links{
+    display: flex;
+    align-items: center;
+
+    a{
+      font-size: 20px;
+      color: white;
+      margin-left: 15px;
+    }
+  }
+}
