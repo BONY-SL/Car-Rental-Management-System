@@ -1,1 +1,73 @@
-<p>signup works!</p>
+<div class="bg" style="background-color: #F8F8F8">
+
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="working...">
+
+    <div class="parent">
+
+      <div class="child">
+
+        <div nz-row class="imgDiv">
+
+          <div nz-col nzSpan="30">
+
+            <h1 style="margin-left: 100px;"><b>Sing UP</b></h1>
+
+          </div>
+
+        </div>
+
+        <form nz-form [formGroup]="signupForm">
+
+          <nz-form-item class="register-are">
+            <nz-form-control nzHasFeedback nzErrorTip="The input is not Valid E-mail!">
+              <input nz-input placeholder="Email" id="email" formControlName="email"/>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="register-are">
+            <nz-form-control nzHasFeedback [nzErrorTip]="errorPass">
+              <input nz-input placeholder="Password" type="password" id="password" formControlName="password"/>
+              <ng-template #errorPass let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  password Is Required!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">
+                  Password Should Contain 8 Characters , 1 Lowercase , 1 Uppercase , 1 Number and 1 Special character
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="register-are">
+            <nz-form-control nzHasFeedback [nzErrorTip]="errorTpl">
+              <input nz-input type="password" placeholder="Conform Password" id="checkPassword" formControlName="checkPassword"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Please Conform Your Password!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('confirm')">
+                  Two Passwords that you enter is inconsistent!
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="register-are">
+            <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+              <input nz-input placeholder="Name" id="username" formControlName="name"/>
+              <ng-template #userErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Please input Your Name!
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="register()"
+          [disabled]="signupForm.invalid">Register</button>
+          <a routerLink="/login" style="align-items: center;color: black;font-size: 16px">login Now!</a>
+        </form>
+      </div>
+    </div>
+  </nz-spin>
+</div>

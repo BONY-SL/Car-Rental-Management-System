@@ -6,6 +6,8 @@ import com.example.CarRentalManagementApplication.entity.User;
 import com.example.CarRentalManagementApplication.repository.UserRepository;
 import com.example.CarRentalManagementApplication.util.UserRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +26,8 @@ public class AuthServiceImpl implements AuthService{
         user.setPassword(signUpRequest.getPassword());
         user.setUserRole(UserRole.CUSTOMER);
 
+
+
         User CreatedUser = userRepository.save(user);
 
         UserDto userDto =new UserDto();
@@ -36,5 +40,11 @@ public class AuthServiceImpl implements AuthService{
 
 
         return userDto;
+    }
+
+    @Override
+    public boolean hasCustomerWithEmail(String email) {
+
+        return userRepository.findByEmail(email).isPresent();
     }
 }
