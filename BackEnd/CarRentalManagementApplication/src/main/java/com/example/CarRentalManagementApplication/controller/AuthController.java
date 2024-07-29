@@ -52,13 +52,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest){
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest){
 
         try {
             authenticationManager.authenticate
                     (new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),authenticationRequest.getPassword()));
         }catch (BadCredentialsException e){
-            throw  new BadCredentialsException("Incorrect User Name Or Password");
+
+            return new ResponseEntity<>("Incorrect User Name Or Password",
+                    HttpStatus.NOT_ACCEPTABLE);
         }
         final UserDetails userDetails = userService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
 
@@ -73,6 +75,6 @@ public class AuthController {
             authenticationResponse.setUserRole(optionalUser.get().getUserRole());
         }
 
-        return authenticationResponse;
+        return new ResponseEntity<>(authenticationResponse,HttpStatus.CREATED);
     }
 }

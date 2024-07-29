@@ -5,9 +5,8 @@ import com.example.CarRentalManagementApplication.dto.UserDto;
 import com.example.CarRentalManagementApplication.entity.User;
 import com.example.CarRentalManagementApplication.repository.UserRepository;
 import com.example.CarRentalManagementApplication.util.UserRole;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +46,22 @@ public class AuthServiceImpl implements AuthService{
     public boolean hasCustomerWithEmail(String email) {
 
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    @PostConstruct
+    public void createAdminAccount(){
+
+        User adminAccount = userRepository.findByUserRole(UserRole.ADMIN);
+
+        if(adminAccount == null){
+
+            User newAdminAccount = new User();
+            newAdminAccount.setName("admin");
+            newAdminAccount.setEmail("admin12345@gmail.com");
+            newAdminAccount.setPassword(new BCryptPasswordEncoder().encode("admin1234"));
+            newAdminAccount.setUserRole(UserRole.ADMIN);
+            userRepository.save(newAdminAccount);
+            System.out.println("Admin Account Created Successfully");
+        }
     }
 }
