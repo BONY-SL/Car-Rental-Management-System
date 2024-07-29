@@ -14,7 +14,7 @@
                   <img class="profile" [src]="imagePreview" alt="Profile">
                 </label>
                 <input type="file" nz-button nzType="primary" id="upload_profile_image"
-                accept="image/x-png,image/gif,image/jpeg" (change)="onFileSelected($event)"/>
+                accept="image/x-png,image/gif,image/jpeg,image/jpg" (change)="onFileSelected($event)"/>
                 <button nz-button nzShape="circle"></button>
               </div>
             </div>
@@ -96,7 +96,7 @@
               </nz-form-item>
             </div>
           </div>
-            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="postCar()">
+            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="postCar()" [disabled]="postCarForm.invalid">
                Post Car
             </button>
         </form>
