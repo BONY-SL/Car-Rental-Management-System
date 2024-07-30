@@ -6,17 +6,20 @@ import { PostCarComponent } from './components/post-car/post-car.component';
 import {NgZorroImportsModule} from "../../NgZorroImportsModule";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
+import { UpdateCarComponent } from './components/update-car/update-car.component';
 
 
 const routes: Routes = [
   {path : "dashboard",component:AdminDashboardComponent},
-  {path : "car",component:PostCarComponent}
+  {path : "car",component:PostCarComponent},
+  {path : "car/:id",component:UpdateCarComponent}
 ];
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
-    PostCarComponent
+    PostCarComponent,
+    UpdateCarComponent
   ],
   imports: [
     CommonModule,
@@ -29,4 +32,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AdminModule { }
+export class AdminModule{}

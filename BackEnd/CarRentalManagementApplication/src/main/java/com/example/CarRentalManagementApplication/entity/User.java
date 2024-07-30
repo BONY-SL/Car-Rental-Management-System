@@ -27,6 +27,9 @@ public class User implements UserDetails {
 
     private UserRole userRole;
 
+    @OneToMany(mappedBy = "user")
+    private List<BookedCar> bookedCars;
+
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();

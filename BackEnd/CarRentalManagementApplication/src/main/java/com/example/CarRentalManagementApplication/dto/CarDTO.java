@@ -3,7 +3,6 @@ package com.example.CarRentalManagementApplication.dto;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 
 @Data
 public class CarDTO {
@@ -24,7 +23,7 @@ public class CarDTO {
 
     private Long price;
 
-    private Date year;
+    private String  year;
 
     private MultipartFile image;
 

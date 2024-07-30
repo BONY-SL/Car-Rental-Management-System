@@ -21,6 +21,14 @@ export class AdminService {
     });
   }
 
+  updateCar(id:number,carDTO: any): Observable<any> {
+
+    return this.http.put(BASE_URL + "/api/admin/updateCarById/"+id, carDTO, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+
   getAllCars(): Observable<any> {
 
     return this.http.get(BASE_URL + "/api/admin/getAllCars", {
@@ -31,6 +39,12 @@ export class AdminService {
   deleteCar(id:number):Observable<any>{
 
     return this.http.delete(BASE_URL+"/api/admin/deleteCar/"+id,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getCarById(id:number):Observable<any>{
+    return this.http.get(BASE_URL+"/api/admin/getCarById/"+id,{
       headers: this.createAuthorizationHeader()
     })
   }

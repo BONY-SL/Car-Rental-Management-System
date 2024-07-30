@@ -1,1 +1,22 @@
-<p>customer-dashboard works!</p>
+<div style="background-color:#F0F0F8;min-height: 91vh">
+  <div style="padding-top: 10px;"></div>
+  <div style="margin-top: 10px" class="child" *ngFor="let car of cars">
+    <div class="car-container">
+      <div class="car-image">
+        <img class="profile" [src]="car.processedImg" alt="profile"/>
+      </div>
+      <div class="car-details">
+        <h1>{{ car.brand }} - {{ car.name }}</h1>
+        <h2><b>{{ car.description }}</b></h2>
+        <hr/>
+        <h3>Price : <b>Rs.{{car.price}}</b></h3>
+        <h3>Color : <b>{{car.color}}</b></h3>
+        <h3>Transmission : <b>{{car.transmission}}</b></h3>
+        <h3>Type : <b>{{car.type}}</b></h3>
+        <h3>Year : <b>{{car.year | date:'yyyy'}}</b></h3>
+        <hr/>
+      </div>
+    </div>
+  </div>
+</div>
+

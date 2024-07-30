@@ -1,0 +1,116 @@
+<div style="margin-top: 150px">
+  <nz-spin [nzSpinning]="isSpinning" nzSize="large" nzTip="Working...">
+    <div class="parent">
+      <div class="child">
+        <div nz-row class="imgDiv">
+          <h1 style="margin-left: 120px"><b>Update  Car</b></h1>
+        </div>
+
+        <form nz-form [formGroup]="updateForm">
+          <div nz-row>
+            <div class="file-upload-container">
+              <label class="file-upload-label">
+                <span style="margin-left: 130px">Select a File</span>
+                <input type="file" nz-button nzType="primary" accept="image/x-png,image/gif,image/jpeg,image/jpg" (change)="onFileSelected($event)"/>
+              </label>
+
+              <div *ngIf="imagePreview" class="image-preview">
+                <div class="circle-image">
+                  <img [src]="imagePreview" alt="Existing Image" class="preview-image"/>
+                </div>
+              </div>
+
+              <div *ngIf="existingImage" class="image-preview">
+                <div class="circle-image">
+                  <img [src]="existingImage" alt="Existing Image" class="preview-image"/>
+                </div>
+              </div>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Brand Name" formControlName="brand">
+                    <nz-option *ngFor="let brand of listOfBrands" nzLabel="{{ brand }}" nzValue="{{ brand }}"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <input nz-input placeholder="Name" formControlName="name"/>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Type" formControlName="type">
+                    <nz-option *ngFor="let type of listOfTypes" nzLabel="{{ type }}" nzValue="{{ type }}">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Transmission" formControlName="transmission">
+                    <nz-option *ngFor="let transmission of listOfTransmissions" nzLabel="{{ transmission }}" nzValue="{{ transmission }}">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Color" formControlName="color">
+                    <nz-option *ngFor="let color of listOfColor" nzLabel="{{ color }}" nzValue="{{ color }}">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input Is Required!">
+                  <nz-year-picker
+                    style="width: 100%"
+                    nzPlaceHolder="Model Year"
+                    formControlName="year">
+                  </nz-year-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <input nz-input placeholder="Price" formControlName="price"/>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="24">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Inpit Is Required!">
+                  <input nz-input placeholder="Description" formControlName="description"/>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="updateCar()">Update Car</button>
+        </form>
+      </div>
+    </div>
+  </nz-spin>
+</div>
