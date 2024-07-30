@@ -16,10 +16,8 @@
         <h3>Year : <b>{{car.year | date:'yyyy'}}</b></h3>
         <hr/>
         <div style="float: right">
-          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger
-          (click)="deleteCar(car.id)">
-            Delete
-          </button>
+          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" routerLink="/admin/car/{{car.id}}">Update</button>
+          <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary" nzDanger (click)="deleteCar(car.id)">Delete</button>
         </div>
       </div>
     </div>

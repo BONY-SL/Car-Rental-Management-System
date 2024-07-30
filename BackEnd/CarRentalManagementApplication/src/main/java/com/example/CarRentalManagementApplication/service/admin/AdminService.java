@@ -11,4 +11,7 @@ public interface AdminService {
     List<CarDTO> getAllCars();
 
     void deleteCar(Integer id);
+
+    CarDTO getCarById(Integer id);
+
 }

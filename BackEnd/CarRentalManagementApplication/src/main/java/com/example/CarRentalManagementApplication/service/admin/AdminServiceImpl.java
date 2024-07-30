@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,5 +48,11 @@ public class AdminServiceImpl implements AdminService{
     public void deleteCar(Integer id) {
 
         carRepository.deleteById(id);
+    }
+
+    @Override
+    public CarDTO getCarById(Integer id) {
+        Optional<Car> optionalCar =  carRepository.findById(id);
+        return optionalCar.map(Car::getCarDTO).orElse(null);
     }
 }
