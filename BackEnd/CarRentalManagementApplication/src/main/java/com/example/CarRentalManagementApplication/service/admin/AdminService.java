@@ -14,4 +14,6 @@ public interface AdminService {
 
     CarDTO getCarById(Integer id);
 
+    boolean updateCarById(Integer id,CarDTO carDTO) throws IOException;
+
 }

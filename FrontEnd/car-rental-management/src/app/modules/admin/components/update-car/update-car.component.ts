@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from "../../service/admin.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-update-car',
@@ -11,11 +12,18 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class UpdateCarComponent implements OnInit{
 
   id:number =  this.activatedRoute.snapshot.params["id"];
-
   existingImage: string | null = null;
-  imagePreview: string | null = null;
   isSpinning: boolean = false;
   updateForm!: FormGroup;
+
+
+
+  imageChanged:boolean=false;
+  selectedFile:any;
+  imagePreview: string | ArrayBuffer | null = null;
+  listOfOption: Array<{label: string;value:string}> = [];
+
+
 
   listOfBrands =["BMW","AUDI","TESLA","TOYOTA","HONDA","NISSAN"];
   listOfTypes  =["Petrol","Hybrid","Diesel","Electric"];
@@ -25,7 +33,9 @@ export class UpdateCarComponent implements OnInit{
 
   constructor(private adminService:AdminService,
               private activatedRoute:ActivatedRoute,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router:Router,
+              private message:NzMessageService) {
   }
 
   ngOnInit() {
@@ -59,5 +69,50 @@ export class UpdateCarComponent implements OnInit{
 
   onFileSelected(event:any) {
 
+    this.selectedFile = event.target.files[0];
+    this.imageChanged = true;
+    this.existingImage = null;
+    this.previewImage();
   }
+
+
+  previewImage() {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    if (this.selectedFile) {
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  async updateCar(){
+    const formData : FormData = new FormData();
+
+    this.isSpinning =true;
+
+    if (this.imageChanged && this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+    formData.append('brand',this.updateForm.get('brand')?.value);
+    formData.append('name',this.updateForm.get('name')?.value);
+    formData.append('type',this.updateForm.get('type')?.value);
+    formData.append('color',this.updateForm.get('color')?.value);
+    formData.append('year',this.updateForm.get('year')?.value);
+    formData.append('transmission',this.updateForm.get('transmission')?.value);
+    formData.append('description',this.updateForm.get('description')?.value);
+    formData.append('price',this.updateForm.get('price')?.value);
+
+    this.adminService.updateCar(this.id,formData).subscribe((res) => {
+      this.isSpinning = false;
+      this.message.success("Car Details Updated Successfully", { nzDuration: 5000 });
+      this.router.navigateByUrl("/admin/dashboard");
+      console.log(res);
+    }, error => {
+      this.isSpinning = false;
+      this.message.error("Error While Updating Car", { nzDuration: 5000 });
+      console.error(error);
+    });
+  }
+
 }

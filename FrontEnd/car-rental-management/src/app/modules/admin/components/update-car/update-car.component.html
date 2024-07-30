@@ -84,8 +84,7 @@
                   <nz-year-picker
                     style="width: 100%"
                     nzPlaceHolder="Model Year"
-                    formControlName="year"
-                    nzFormat="yyyy">
+                    formControlName="year">
                   </nz-year-picker>
                 </nz-form-control>
               </nz-form-item>
@@ -109,7 +108,7 @@
             </div>
           </div>
 
-          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Update Car</button>
+          <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="updateCar()">Update Car</button>
         </form>
       </div>
     </div>

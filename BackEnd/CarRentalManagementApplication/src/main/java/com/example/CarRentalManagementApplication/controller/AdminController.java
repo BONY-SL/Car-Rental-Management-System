@@ -51,4 +51,18 @@ public class AdminController {
 
     }
 
+    @PutMapping("/updateCarById/{id}")
+    public ResponseEntity<?> updateCarById(@PathVariable Integer id,@ModelAttribute CarDTO carDTO) throws IOException {
+
+        System.out.println(carDTO);
+        try{
+            boolean success = adminService.updateCarById(id,carDTO);
+            if(success)return ResponseEntity.status(HttpStatus.OK).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+    }
+
 }
