@@ -1,0 +1,76 @@
+.child {
+  padding: 20px;
+  width: 900px;
+  background-color: #a1f3a1;
+  box-shadow: 1px 1px 15px -7px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.car-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.car-image {
+  flex: 1;
+}
+
+.profile {
+  height: 350px;
+  width: 450px;
+  border-radius: 10px;
+}
+
+.car-details {
+  flex: 2;
+  padding-left: 20px;
+}
+
+h1 {
+  cursor: pointer;
+  color: #108ee9;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+tr {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h1:hover {
+  text-decoration-line: underline;
+}
+
+.pagination {
+  width: 900px;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+b {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

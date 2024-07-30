@@ -11,18 +11,33 @@ const BASE_URL = ["http://localhost:8080"];
 })
 export class AdminService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  postCar(carDTO:any):Observable<any>{
+  postCar(carDTO: any): Observable<any> {
 
-    return this.http.post(BASE_URL+"/api/admin/postCar",carDTO,{
+    return this.http.post(BASE_URL + "/api/admin/postCar", carDTO, {
       headers: this.createAuthorizationHeader()
     });
   }
 
-  createAuthorizationHeader():HttpHeaders{
+  getAllCars(): Observable<any> {
 
-    let authHeader : HttpHeaders = new HttpHeaders();
+    return this.http.get(BASE_URL + "/api/admin/getAllCars", {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+  deleteCar(id:number):Observable<any>{
+
+    return this.http.delete(BASE_URL+"/api/admin/deleteCar/"+id,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  createAuthorizationHeader(): HttpHeaders {
+
+    let authHeader: HttpHeaders = new HttpHeaders();
     return authHeader.set(
       'Authorization',
       'Bearer ' + StorageService.getToken()

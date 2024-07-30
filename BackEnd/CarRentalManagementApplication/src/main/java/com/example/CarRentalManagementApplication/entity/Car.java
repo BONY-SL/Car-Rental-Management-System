@@ -1,5 +1,6 @@
 package com.example.CarRentalManagementApplication.entity;
 
+import com.example.CarRentalManagementApplication.dto.CarDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,5 +33,21 @@ public class Car {
 
     @Column(columnDefinition ="LONGBLOB")
     private byte[] image;
+
+    public CarDTO getCarDTO(){
+
+        CarDTO carDTO = new CarDTO();
+        carDTO.setId(id);
+        carDTO.setName(name);
+        carDTO.setBrand(brand);
+        carDTO.setColor(color);
+        carDTO.setPrice(price);
+        carDTO.setDescription(description);
+        carDTO.setType(type);
+        carDTO.setTransmission(transmission);
+        carDTO.setYear(year);
+        carDTO.setReturnedImage(image);
+        return carDTO;
+    }
 
 }
