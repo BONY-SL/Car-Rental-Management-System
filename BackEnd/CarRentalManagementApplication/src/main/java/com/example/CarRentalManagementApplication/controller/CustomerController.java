@@ -26,14 +26,23 @@ public class CustomerController {
         return ResponseEntity.ok(carDTOList);
     }
 
-    @PostMapping("/car/bookCar")
+    @PostMapping("/bookCar")
     public ResponseEntity<?> bookCar(@RequestBody BookCarDTO bookCarDTO){
 
+        System.out.println(bookCarDTO);
         boolean success = customerService.bookCar(bookCarDTO);
         if(success){
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @GetMapping("/getCarById/{id}")
+    public ResponseEntity<CarDTO> getCarById(@PathVariable Integer id){
+
+        CarDTO carDTO = customerService.getCarById(id);
+        return ResponseEntity.ok(carDTO);
+
     }
 }

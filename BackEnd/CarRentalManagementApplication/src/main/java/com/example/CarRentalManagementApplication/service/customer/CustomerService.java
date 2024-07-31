@@ -10,4 +10,7 @@ public interface CustomerService {
     List<CarDTO> getAllCarsForCustomer();
 
     boolean bookCar(BookCarDTO bookCarDTO);
+
+
+    CarDTO getCarById(Integer id);
 }

@@ -45,10 +45,9 @@ public class CustomerServiceImpl implements CustomerService{
 
                 bookedCar.setUser(optionalUser.get());
                 bookedCar.setCar(eXcar);
-
                 bookedCar.setBookCarStatus(BookCarStatus.PENDING);
                 long timeDuration = bookCarDTO.getToDate().getTime() - bookCarDTO.getFromDate().getTime();
-                long days = TimeUnit.MICROSECONDS.toDays(timeDuration);
+                long days = TimeUnit.MILLISECONDS.toDays(timeDuration);
                 bookedCar.setDays(days);
                 bookedCar.setPrice(eXcar.getPrice() * days);
                 bookedCar.setFromDate(bookCarDTO.getFromDate());
@@ -62,5 +61,11 @@ public class CustomerServiceImpl implements CustomerService{
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public CarDTO getCarById(Integer id) {
+        Optional<Car> optionalCar =  carRepository.findById(id);
+        return optionalCar.map(Car::getCarDTO).orElse(null);
     }
 }
