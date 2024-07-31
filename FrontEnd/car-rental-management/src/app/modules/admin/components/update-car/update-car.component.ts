@@ -3,6 +3,7 @@ import {AdminService} from "../../service/admin.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NzMessageService} from "ng-zorro-antd/message";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-update-car',
@@ -103,15 +104,31 @@ export class UpdateCarComponent implements OnInit{
     formData.append('description',this.updateForm.get('description')?.value);
     formData.append('price',this.updateForm.get('price')?.value);
 
-    this.adminService.updateCar(this.id,formData).subscribe((res) => {
-      this.isSpinning = false;
-      this.message.success("Car Details Updated Successfully", { nzDuration: 5000 });
-      this.router.navigateByUrl("/admin/dashboard");
-      console.log(res);
-    }, error => {
-      this.isSpinning = false;
-      this.message.error("Error While Updating Car", { nzDuration: 5000 });
-      console.error(error);
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to update the car details?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3c8c3c',
+      cancelButtonColor: '#f85555',
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.adminService.updateCar(this.id, formData).subscribe((res) => {
+          this.isSpinning = false;
+          this.message.success("Car Details Updated Successfully", { nzDuration: 5000 });
+          this.router.navigateByUrl("/admin/dashboard");
+          console.log(res);
+        }, error => {
+          this.isSpinning = false;
+          this.message.error("Error While Updating Car", { nzDuration: 5000 });
+          console.error(error);
+        });
+      } else {
+        this.isSpinning = false;
+      }
     });
   }
 
