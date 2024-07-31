@@ -2,6 +2,7 @@ package com.example.CarRentalManagementApplication.service.customer;
 
 import com.example.CarRentalManagementApplication.dto.BookCarDTO;
 import com.example.CarRentalManagementApplication.dto.CarDTO;
+import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
 import com.example.CarRentalManagementApplication.entity.BookedCar;
 import com.example.CarRentalManagementApplication.entity.Car;
 import com.example.CarRentalManagementApplication.entity.User;
@@ -67,5 +68,13 @@ public class CustomerServiceImpl implements CustomerService{
     public CarDTO getCarById(Integer id) {
         Optional<Car> optionalCar =  carRepository.findById(id);
         return optionalCar.map(Car::getCarDTO).orElse(null);
+    }
+
+    @Override
+    public List<GetBookingCarDTO> getBookingsByUserId(Integer userId) {
+
+        User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
+
+        return bookCarRepository.findAllByUser(user).stream().map(BookedCar::getBookingCarDTO).collect(Collectors.toList());
     }
 }

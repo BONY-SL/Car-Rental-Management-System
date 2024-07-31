@@ -1,6 +1,7 @@
 package com.example.CarRentalManagementApplication.service.admin;
 
 import com.example.CarRentalManagementApplication.dto.CarDTO;
+import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,5 +16,7 @@ public interface AdminService {
     CarDTO getCarById(Integer id);
 
     boolean updateCarById(Integer id,CarDTO carDTO) throws IOException;
+
+    List<GetBookingCarDTO> getBookingCarsByCustomer();
 
 }

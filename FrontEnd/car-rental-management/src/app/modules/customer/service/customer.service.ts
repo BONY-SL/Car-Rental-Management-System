@@ -33,6 +33,12 @@ export class CustomerService {
     })
   }
 
+  getBookingCarByUserId():Observable<any>{
+    return this.http.get(BASE_URL+"/api/customer/getBookingCarByUserId/" + StorageService.getUserId(),{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
   createAuthorizationHeader(): HttpHeaders {
 
     let authHeader: HttpHeaders = new HttpHeaders();

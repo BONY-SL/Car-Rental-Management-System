@@ -49,6 +49,13 @@ export class AdminService {
     })
   }
 
+  getBookingCarsByCustomer(): Observable<any> {
+    return this.http.get(BASE_URL + "/api/admin/getBookingCarsByCustomer", {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+
   createAuthorizationHeader(): HttpHeaders {
 
     let authHeader: HttpHeaders = new HttpHeaders();
