@@ -1,5 +1,6 @@
 package com.example.CarRentalManagementApplication.entity;
 
+import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
 import com.example.CarRentalManagementApplication.util.BookCarStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -39,5 +40,24 @@ public class BookedCar {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Car car;
+
+
+    public GetBookingCarDTO getBookingCarDTO(){
+
+        GetBookingCarDTO bookingCarDTO = new GetBookingCarDTO();
+
+        bookingCarDTO.setId(id);
+        bookingCarDTO.setDays(days);
+        bookingCarDTO.setBookCarStatus(bookCarStatus);
+        bookingCarDTO.setPrice(price);
+        bookingCarDTO.setToDate(toDate);
+        bookingCarDTO.setFromDate(fromDate);
+        bookingCarDTO.setEmail(user.getEmail());
+        bookingCarDTO.setName(user.getName());
+        bookingCarDTO.setUserId(user.getId());
+        bookingCarDTO.setCarId(car.getId());
+
+        return bookingCarDTO;
+    }
 
 }

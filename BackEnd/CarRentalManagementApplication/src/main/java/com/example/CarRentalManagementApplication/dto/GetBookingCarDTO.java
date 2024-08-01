@@ -1,10 +1,12 @@
 package com.example.CarRentalManagementApplication.dto;
+
 import com.example.CarRentalManagementApplication.util.BookCarStatus;
 import lombok.Data;
+
 import java.util.Date;
 
 @Data
-public class BookCarDTO {
+public class GetBookingCarDTO {
 
     private Integer id;
 
@@ -21,4 +23,9 @@ public class BookCarDTO {
     private Integer userId;
 
     private Integer carId;
+
+    private String name;
+
+    private String email;
+
 }

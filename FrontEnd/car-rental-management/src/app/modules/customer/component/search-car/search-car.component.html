@@ -1,0 +1,84 @@
+<div>
+  <nz-spin [nzSpinning]="isSpinning" [nzSize]="'large'" nzTip="Working...">
+    <div>
+      <div [formGroup]="searchCarForm">
+        <div>
+          <table class="filter-table">
+            <tr>
+              <td>
+                <nz-form-item>
+                  <nz-form-label nzFor="brand">Brand</nz-form-label>
+                  <nz-form-control nzErrorTip="This Input Is Required!">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Brand" formControlName="brand">
+                      <nz-option *ngFor="let brand of listOfBrands" nzLabel="{{brand}}" nzValue="{{brand}}"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                <nz-form-item>
+                  <nz-form-label nzFor="type">Type</nz-form-label>
+                  <nz-form-control nzErrorTip="This Input Is Required!">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Type" formControlName="type">
+                      <nz-option *ngFor="let type of listOfTypes" nzLabel="{{type}}" nzValue="{{type}}"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                <nz-form-item>
+                  <nz-form-label nzFor="color">Color</nz-form-label>
+                  <nz-form-control nzErrorTip="This Input Is Required!">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Color" formControlName="color">
+                      <nz-option *ngFor="let color of listOfColor" nzLabel="{{color}}" nzValue="{{color}}"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+              <td>
+                <nz-form-item>
+                  <nz-form-label nzFor="transmission">Transmission</nz-form-label>
+                  <nz-form-control nzErrorTip="This Input Is Required!">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Transmission" formControlName="transmission">
+                      <nz-option *ngFor="let transmission of listOfTransmissions" nzLabel="{{transmission}}" nzValue="{{transmission}}"></nz-option>
+                    </nz-select>
+                  </nz-form-control>
+                </nz-form-item>
+              </td>
+            <tr>
+              <td colspan="4" align="center">
+                <div>
+                  <button class="filterBtn" nz-button nzType="primary" (click)="searchCar()">
+                    Search Car
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </nz-spin>
+</div>
+<div style="background-color:#F0F0F8;min-height: 91vh">
+  <div style="padding-top: 10px;"></div>
+  <div style="margin-top: 10px" class="child" *ngFor="let car of cars">
+    <div class="car-container">
+      <div class="car-image">
+        <img class="profile" [src]="car.processedImg" alt="profile"/>
+      </div>
+      <div class="car-details">
+        <h1>{{ car.brand }} - {{ car.name }}</h1>
+        <h2><b>{{ car.description }}</b></h2>
+        <hr/>
+        <h3>Price : <b>Rs.{{car.price}}</b></h3>
+        <h3>Color : <b>{{car.color}}</b></h3>
+        <h3>Transmission : <b>{{car.transmission}}</b></h3>
+        <h3>Type : <b>{{car.type}}</b></h3>
+        <h3>Year : <b>{{car.year | date:'yyyy'}}</b></h3>
+        <hr/>
+      </div>
+    </div>
+  </div>
+</div>
+

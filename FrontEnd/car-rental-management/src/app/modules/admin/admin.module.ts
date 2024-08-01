@@ -7,19 +7,25 @@ import {NgZorroImportsModule} from "../../NgZorroImportsModule";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import { UpdateCarComponent } from './components/update-car/update-car.component';
+import { GetBookingsComponent } from './components/get-bookings/get-bookings.component';
+import { SearchCarComponent } from './components/search-car/search-car.component';
 
 
 const routes: Routes = [
   {path : "dashboard",component:AdminDashboardComponent},
   {path : "car",component:PostCarComponent},
-  {path : "car/:id",component:UpdateCarComponent}
+  {path : "car/:id",component:UpdateCarComponent},
+  {path : "get_bookings_admin",component:GetBookingsComponent},
+  {path : "searchCar",component:SearchCarComponent},
 ];
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     PostCarComponent,
-    UpdateCarComponent
+    UpdateCarComponent,
+    GetBookingsComponent,
+    SearchCarComponent
   ],
   imports: [
     CommonModule,
