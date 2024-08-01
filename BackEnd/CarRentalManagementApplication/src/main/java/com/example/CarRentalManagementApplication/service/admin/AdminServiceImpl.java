@@ -1,12 +1,17 @@
 package com.example.CarRentalManagementApplication.service.admin;
 
 import com.example.CarRentalManagementApplication.dto.CarDTO;
+import com.example.CarRentalManagementApplication.dto.CarDTOList;
 import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
+import com.example.CarRentalManagementApplication.dto.SearchCarDTO;
 import com.example.CarRentalManagementApplication.entity.BookedCar;
 import com.example.CarRentalManagementApplication.entity.Car;
 import com.example.CarRentalManagementApplication.repository.BookCarRepository;
 import com.example.CarRentalManagementApplication.repository.CarRepository;
+import com.example.CarRentalManagementApplication.util.BookCarStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -104,5 +110,51 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public List<GetBookingCarDTO> getBookingCarsByCustomer() {
         return bookCarRepository.findAll().stream().map(BookedCar::getBookingCarDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean changeBookingStatus(Integer bookingId, String status) {
+
+        Optional<BookedCar> optionalBookedCar = bookCarRepository.findById(bookingId);
+
+        if(optionalBookedCar.isPresent()){
+
+            BookedCar bookedCar = optionalBookedCar.get();
+
+            if(Objects.equals(status,"APPROVED")){
+                bookedCar.setBookCarStatus(BookCarStatus.APPROVED);
+            }else {
+                bookedCar.setBookCarStatus(BookCarStatus.REJECTED);
+            }
+            bookCarRepository.save(bookedCar);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public CarDTOList searchCar(SearchCarDTO searchCarDTO) {
+        Car car = new Car();
+        car.setBrand(searchCarDTO.getBrand());
+        car.setType(searchCarDTO.getType());
+        car.setTransmission(searchCarDTO.getTransmission());
+        car.setColor(searchCarDTO.getColor());
+
+        ExampleMatcher exampleMatcher =
+                ExampleMatcher.matchingAll()
+                        .withMatcher("brand",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("type",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("transmission",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("color",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+
+        Example<Car> carExample = Example.of(car,exampleMatcher);
+
+        List<Car> carList = carRepository.findAll(carExample);
+
+        CarDTOList carDTOList = new CarDTOList();
+
+        carDTOList.setCarDTOList(carList.stream().map(Car::getCarDTO).collect(Collectors.toList()));
+        return carDTOList;
     }
 }

@@ -2,6 +2,7 @@ package com.example.CarRentalManagementApplication.controller;
 
 import com.example.CarRentalManagementApplication.dto.CarDTO;
 import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
+import com.example.CarRentalManagementApplication.dto.SearchCarDTO;
 import com.example.CarRentalManagementApplication.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -72,5 +73,25 @@ public class AdminController {
     public ResponseEntity<List<GetBookingCarDTO>> getBookingCarsByCustomer(){
         return ResponseEntity.ok(adminService.getBookingCarsByCustomer());
     }
+
+    @PutMapping("/changeBookingStatus/{id}/{status}")
+    public ResponseEntity<?> changeBookingStatus(@PathVariable Integer id, @PathVariable String status) {
+        //System.out.println("Received request to change booking status for ID: " + id + " to " + status);
+
+        boolean success = adminService.changeBookingStatus(id, status);
+
+        if (success) {
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to change booking status");
+        }
+    }
+
+    @PostMapping("/searchCar")
+    public ResponseEntity<?> searchCar(@RequestBody SearchCarDTO searchCarDTO){
+
+        return ResponseEntity.ok(adminService.searchCar(searchCarDTO));
+    }
+
 
 }
