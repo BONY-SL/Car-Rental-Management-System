@@ -7,18 +7,21 @@ import { BookCarComponent } from './component/book-car/book-car.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import { MyBookingsComponent } from './component/my-bookings/my-bookings.component';
+import { SearchCarComponent } from './component/search-car/search-car.component';
 
 const routes: Routes = [
   {path : "dashboard",component:CustomerDashboardComponent},
   {path : "bookCar/:id",component:BookCarComponent},
-  {path : "my_bookings",component:MyBookingsComponent}
+  {path : "my_bookings",component:MyBookingsComponent},
+  {path : "searchCar",component:SearchCarComponent}
 ];
 
 @NgModule({
   declarations: [
     CustomerDashboardComponent,
     BookCarComponent,
-    MyBookingsComponent
+    MyBookingsComponent,
+    SearchCarComponent
   ],
   imports: [
     CommonModule,

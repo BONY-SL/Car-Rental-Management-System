@@ -39,6 +39,14 @@ export class CustomerService {
     })
   }
 
+  searchCar(searchCarDTO: any): Observable<any> {
+
+    return this.http.post(BASE_URL + "/api/customer/searchCar", searchCarDTO, {
+      headers: this.createAuthorizationHeader()
+    });
+  }
+
+
   createAuthorizationHeader(): HttpHeaders {
 
     let authHeader: HttpHeaders = new HttpHeaders();

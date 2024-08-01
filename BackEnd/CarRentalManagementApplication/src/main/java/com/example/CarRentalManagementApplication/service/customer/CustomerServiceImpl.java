@@ -1,8 +1,6 @@
 package com.example.CarRentalManagementApplication.service.customer;
 
-import com.example.CarRentalManagementApplication.dto.BookCarDTO;
-import com.example.CarRentalManagementApplication.dto.CarDTO;
-import com.example.CarRentalManagementApplication.dto.GetBookingCarDTO;
+import com.example.CarRentalManagementApplication.dto.*;
 import com.example.CarRentalManagementApplication.entity.BookedCar;
 import com.example.CarRentalManagementApplication.entity.Car;
 import com.example.CarRentalManagementApplication.entity.User;
@@ -11,6 +9,8 @@ import com.example.CarRentalManagementApplication.repository.CarRepository;
 import com.example.CarRentalManagementApplication.repository.UserRepository;
 import com.example.CarRentalManagementApplication.util.BookCarStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,5 +76,30 @@ public class CustomerServiceImpl implements CustomerService{
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User Not Found"));
 
         return bookCarRepository.findAllByUser(user).stream().map(BookedCar::getBookingCarDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public CarDTOList searchCar(SearchCarDTO searchCarDTO) {
+        Car car = new Car();
+        car.setBrand(searchCarDTO.getBrand());
+        car.setType(searchCarDTO.getType());
+        car.setTransmission(searchCarDTO.getTransmission());
+        car.setColor(searchCarDTO.getColor());
+
+        ExampleMatcher exampleMatcher =
+                ExampleMatcher.matchingAll()
+                        .withMatcher("brand",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("type",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("transmission",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                        .withMatcher("color",ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
+
+        Example<Car> carExample = Example.of(car,exampleMatcher);
+
+        List<Car> carList = carRepository.findAll(carExample);
+
+        CarDTOList carDTOList = new CarDTOList();
+
+        carDTOList.setCarDTOList(carList.stream().map(Car::getCarDTO).collect(Collectors.toList()));
+        return carDTOList;
     }
 }
